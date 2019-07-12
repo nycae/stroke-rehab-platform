@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9378f0216b63ef84480e26d4a490fc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 
+  levelToLoad: Scenes/Tutorial
   textBox: {fileID: 397910259}
   timeText: {fileID: 1641944359}
   timeToStartLevel: 5
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9378f0216b63ef84480e26d4a490fc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 
+  levelToLoad: Scenes/PoseRecognition
   textBox: {fileID: 397910259}
   timeText: {fileID: 1484382843}
   timeToStartLevel: 5
@@ -2127,7 +2127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9378f0216b63ef84480e26d4a490fc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Scenes/Calibration
+  levelToLoad: Scenes/WindowCleaning
   textBox: {fileID: 397910259}
   timeText: {fileID: 753515116}
   timeToStartLevel: 5

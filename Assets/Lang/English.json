@@ -1,0 +1,7 @@
+﻿{
+	"introduction" : "Hello, this is unrehab, the ultimate rehabilitation platform for stroke patients.",
+	"controls" : "This virtual avatar will move itself emulating your movements like if you were in a mirror.",
+	"trigger_explanation" : "This capsules act like buttons, just touch them and let the timer reach 5 seconds in order to trigger them. Have a try!",
+	"congratulations" : "Congratulations! You may find triggers like this in some of the games.",
+	"final_message" : "You will be soon sent to the main menu, please enjoy your stay. :D"
+}

@@ -6,21 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class ManageScore : MonoBehaviour
 {
-    private uint score = 0;
+    private int score = 0;
 
     private int lastMessageIndex = 0;
 
     [SerializeField]
-    public uint targetScore = 10;
+    public int targetScore = 10;
 
     [SerializeField]
-    public uint delayTime = 2;
+    public int delayTime = 2;
 
     [SerializeField]
     public Text logText;
 
     [SerializeField]
+    public SpawnManagerBehaviour spawnManager;
+
+    [SerializeField]
     public string[] congratMsgList;
+
 
     public void OnGoal()
     {
@@ -28,6 +32,7 @@ public class ManageScore : MonoBehaviour
 
         if (score >= targetScore)
         {
+            spawnManager.OnEndGame();
             OnGameEnd();
         }
         else
@@ -50,6 +55,6 @@ public class ManageScore : MonoBehaviour
         SceneManager.LoadScene("Scenes/MainMenu");
     }
 
-    public uint GetScore()
+    public int GetScore()
         { return score; }
 }

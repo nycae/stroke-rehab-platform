@@ -11,17 +11,16 @@ public class StoreBall : MonoBehaviour
     [SerializeField]
     public ManageScore scoreManager;
 
+    [SerializeField]
+    public SpawnManagerBehaviour spawnManager;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball")
         {
-            if (scoreManager)
-                scoreManager.OnGoal();
-            else
-                logText.text = "Can't reach the score manager";
-
+            scoreManager.OnGoal();
+            spawnManager.OnGoal();
             Destroy(other.gameObject);
-            Destroy(this.gameObject);
         }
         else
         {

@@ -5,11 +5,13 @@ using UnityEngine;
 public class GrabBall : MonoBehaviour
 {
     [SerializeField]
-    public UnityEngine.UI.Text logText;
+    public Vector3 offset;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball")
+        if (other.gameObject.tag == "Ball"
+            &&
+            other.gameObject.transform.parent == null)
         {
             GameObject grabbedBall = other.gameObject;
 
@@ -17,6 +19,7 @@ public class GrabBall : MonoBehaviour
             grabbedBall.transform.tag = "Ball";
             grabbedBall.transform.parent = transform;
             grabbedBall.transform.position = transform.position;
+            grabbedBall.transform.localPosition = offset;
         }
     }
 }

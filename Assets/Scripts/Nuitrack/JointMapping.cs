@@ -49,4 +49,16 @@ public class JointMapping : MonoBehaviour
                 * (skeleton.GetJoint(modelJoint.jointType).ToQuaternionMirrored()) 
                 * modelJoint.baseRotOffset;
     }
+
+    public Quaternion[] GetRotations()
+    {
+        Quaternion[] toReturn = new Quaternion[modelJoints.Length];
+
+        for (int i = 0; i < modelJoints.Length; i++)
+        {
+            toReturn[i] = modelJoints[i].bone.rotation; //CurrentUserTracker.CurrentSkeleton.GetJoint(modelJoints[i].jointType).ToQuaternion();
+        }
+
+        return toReturn;
+    }
 }
