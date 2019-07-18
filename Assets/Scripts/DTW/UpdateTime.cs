@@ -11,23 +11,22 @@ public class UpdateTime : MonoBehaviour
     [SerializeField]
     DTWManager dtwManager;
 
-    private bool isTimerOn;
-
     private void Update()
     {
-        if (isTimerOn)
+        if (dtwManager.IsCollectingData())
+        {
+            timerText.color = Color.green;
             timerText.text = (Time.time - dtwManager.GetTimestamp()).ToString("0.00");
-    }
-
-    public void StartTimer()
-    {
-        isTimerOn = true;
-        Invoke("StopTimer", DTWManager.numberOfSeconds);
-    }
-
-    public void StopTimer()
-    {
-        isTimerOn = false;
-        timerText.text = "";
+        }
+        else if (dtwManager.IsInCountdown())
+        {
+            timerText.color = Color.red;
+            timerText.text = (Time.time - dtwManager.GetTimestamp()).ToString("0.00");
+        }
+        else
+        {
+            timerText.color = Color.green;
+            timerText.text = "0.00";
+        }
     }
 }

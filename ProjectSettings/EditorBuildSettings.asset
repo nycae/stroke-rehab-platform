@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GarbageCollector.unity
     guid: fb9c7e6607f943c4baa94a85e832ca6c
   - enabled: 1
+    path: Assets/Scenes/PoseRecognition.unity
+    guid: f526c95b499c2ed47bf8eda5c3ac91fa
+  - enabled: 0
     path: Assets/Scenes/MovementModelGenerator.unity
     guid: a6e2e972e4097bf44963b3191a77fe18
   m_configObjects: {}

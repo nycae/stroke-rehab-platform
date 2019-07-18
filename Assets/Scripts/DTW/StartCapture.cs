@@ -7,13 +7,9 @@ public class StartCapture : MonoBehaviour
     [SerializeField]
     DTWManager dtwManager;
 
-    [SerializeField]
-    UpdateTime timeUpdater;
-
     private void OnTriggerEnter(Collider other)
     {
         dtwManager.OnCaptureStart();
-        timeUpdater.StartTimer();
         Destroy(gameObject);
     }
 }

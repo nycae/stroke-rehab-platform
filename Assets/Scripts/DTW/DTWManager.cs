@@ -13,42 +13,39 @@ public class DTWManager : MonoBehaviour
     [SerializeField]
     Text timerText;
 
-    static private int numberOfJoints = 11;
-
-    static public float numberOfSeconds = 3f;
-
-    static private int expectedFrameRate = 30;
-
-    static private int numberOfFrames = (int)numberOfSeconds * expectedFrameRate;
+    static public float secondsToWait = 3f;
 
     private bool isCollectingData = false;
 
-    private Quaternion[,] rotations = new Quaternion[numberOfJoints, numberOfFrames];
+    private bool isInCountdown = false;
+
+    private Quaternion[,] rotations = new Quaternion[PoseModel.numberOfJoints, PoseModel.numberOfFrames];
 
     private int frameIndex = 0;
 
-    private float timestamp;
+    private float timestamp = 0.0f;
 
     private void Start()
     {
-        Application.targetFrameRate = expectedFrameRate;
+        Application.targetFrameRate = PoseModel.expectedFrameRate;
     }
 
     private void Update()
     {
         if (isCollectingData)
         {
-            if ((Time.time - timestamp) >= numberOfSeconds)
+            if (frameIndex >= PoseModel.numberOfFrames)
             {
                 OnDataCollectionStop();
             }
 
             Quaternion[] frameRotations = riggedModel.GetRotations();
-            for (int jointIndex = 0; jointIndex < numberOfJoints; jointIndex++)
+
+            for (int jointIndex = 0; jointIndex < frameRotations.Length; jointIndex++)
             {
                 rotations[jointIndex, frameIndex] = frameRotations[jointIndex];
-                frameIndex++;
             }
+            frameIndex++;
         }
     }
 
@@ -60,47 +57,39 @@ public class DTWManager : MonoBehaviour
     public void OnCaptureStart()
     {
         timestamp = Time.time;
-        Invoke("StartCapture", numberOfSeconds);
+        isInCountdown = true;
+        Invoke("StartCapture", secondsToWait);
     }
 
     private void StartCapture()
     {
         isCollectingData = true;
+        isInCountdown = false;
         timestamp = Time.time;
     }
 
     private void OnDataCollectionStop()
     {
         isCollectingData = false;
-        SaveData();
-    }
 
-    private void SaveData()
-    {
+        PoseModel model = new PoseModel(rotations);
 
-        FileInfo file = new FileInfo(Application.persistentDataPath + "/" + "output.txt");
-
-        if (file.Exists) file.Delete();
-
-        StreamWriter writer = file.CreateText();
-
-        for (int jointIndex = 0; jointIndex < numberOfJoints; jointIndex++)
-        {
-            writer.Write("[");
-            for (int frameIndex = 0; frameIndex < numberOfFrames; frameIndex++)
-            {
-                Quaternion frameJointRotation = rotations[jointIndex, frameIndex];
-                writer.Write(string.Format("({0}, {1}, {2} ,{3})", frameJointRotation.x,
-                    frameJointRotation.y, frameJointRotation.z, frameJointRotation.w));
-            }
-            writer.Write("]");
-            writer.Write(writer.NewLine);
-        }
-        timerText.text = "Todo fue con forme a lo planteado";
+        model.SaveModel("output.txt");
+        timerText.text = "Todo fué correcto";
     }
 
     public float GetTimestamp()
     {
         return timestamp;
+    }
+
+    public bool IsCollectingData()
+    {
+        return isCollectingData;
+    }
+
+    public bool IsInCountdown()
+    {
+        return isInCountdown;
     }
 }
