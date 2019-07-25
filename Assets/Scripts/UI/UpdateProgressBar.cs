@@ -6,20 +6,23 @@ using UnityEngine.UI;
 public class UpdateProgressBar : MonoBehaviour
 {
     [SerializeField]
-    public CleanGameManager gameManager;
+    private ScoreManager scoreManager;
 
     [SerializeField]
-    public Slider slider;
+    private Slider slider;
 
 
     void Start()
     {
         if (slider == null)
             slider = gameObject.GetComponent<Slider>();
+
+        if (scoreManager == null)
+            scoreManager = (ScoreManager)FindObjectOfType<ScoreManager>();
     }
 
     void Update()
     {
-        slider.value = gameManager.GetScoreProportion();
+        slider.value = (float)scoreManager.GetScore() / (float)scoreManager.GetMaxScore();
     }
 }

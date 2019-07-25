@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpeechManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class SpeechManager : MonoBehaviour
 
     public void NextText()
     {
+        if (dialogIndex >= 5) SceneManager.LoadScene("Scenes/MainMenu");
+
         dialogText.text = dialogs[dialogIndex];
 
         dialogIndex++;

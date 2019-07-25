@@ -3,32 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PoseScoreManager : MonoBehaviour
+public class PoseScoreManager : ScoreManager
 {
-    [SerializeField]
-    private int targetScore;
+    delegate void Something();
 
-    [SerializeField]
-    private float waitTime;
-
-    private int score = 0;
-
-    public void OnNewGoal()
+    protected override void Start()
     {
-        score++;
-        if (score >= targetScore)
-        {
-            Invoke("LoadMainMenu", waitTime);
-        }
+        base.Start();
+        PoseManager.OnNewGoal += AttendGoal;
     }
 
-    private void LoadMainMenu()
+    public void AttendGoal()
     {
-        SceneManager.LoadScene("Scenes/MainMenu");
+        UpdateScore(score + 1);
     }
 
-    public int GetScore()
-    {
-        return score;
-    }
 }

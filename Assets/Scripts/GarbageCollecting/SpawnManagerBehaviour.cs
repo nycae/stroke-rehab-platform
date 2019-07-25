@@ -6,34 +6,36 @@ using UnityEngine.Assertions;
 public class SpawnManagerBehaviour : MonoBehaviour
 {
     [SerializeField]
-    public GameObject ballClass;
+    private GameObject ballClass;
 
     [SerializeField]
-    public GameObject trashClass;
+    private GameObject trashClass;
 
     [SerializeField]
-    public GameObject[] spawnPoints;
+    private GameObject[] spawnPoints;
 
     [SerializeField]
-    public float waitTime = 0.5f;
+    private float waitTime = 0.5f;
 
     [SerializeField]
-    public bool randomTrash = false;
+    private bool randomTrash = false;
 
     [SerializeField]
-    UnityEngine.UI.Text logText;
+    private GameObject trash;
 
     private float lastGoalTime;
 
-    private bool isBallSpawned;
+    private bool isBallSpawned = false;
 
-    private int lastBallIndex;
+    private int lastBallIndex = 0;
 
     private bool isGameOver = false;
 
     private void Start()
     {
         Assert.IsFalse(spawnPoints.Length <= 0);
+        StoreBall.OnGoal += AttendGoal;
+        ScoreManager.OnGameEnd += AttendEndGame;
     }
 
     private void Update()
@@ -67,16 +69,21 @@ public class SpawnManagerBehaviour : MonoBehaviour
         do { trashIndex = Random.Range(0, spawnPoints.Length); }
         while (trashIndex == lastBallIndex);
 
-        Instantiate(trashClass, spawnPoints[trashIndex].transform.position, Quaternion.identity);
+        trash = Instantiate(trashClass, spawnPoints[trashIndex].transform.position, Quaternion.identity);
     }
 
-    public void OnGoal()
+    public void AttendGoal()
     {
         lastGoalTime = Time.time;
+        if (randomTrash)
+        {
+            Destroy(trash);
+            SpawnTrash();
+        }
         isBallSpawned = false;
     }
 
-    public void OnEndGame()
+    public void AttendEndGame()
     {
         isGameOver = true;
     }

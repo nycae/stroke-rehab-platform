@@ -8,24 +8,19 @@ public class StoreBall : MonoBehaviour
     [SerializeField]
     public UnityEngine.UI.Text logText;
 
-    [SerializeField]
-    public ManageScore scoreManager;
 
     [SerializeField]
     public SpawnManagerBehaviour spawnManager;
 
+    public delegate void Goal();
+
+    public static event Goal OnGoal;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ball")
-        {
-            scoreManager.OnGoal();
-            spawnManager.OnGoal();
-            Destroy(other.gameObject);
-        }
-        else
-        {
-            logText.text = "Error de etiquetas, ha sido tocado por " + other.gameObject.tag;
-        }
+        OnGoal();
+        Destroy(other.gameObject);
+
     }
 
     private GameObject GetBall(GameObject candidate)

@@ -5,15 +5,11 @@ using UnityEngine;
 
 public enum CustomGestureType
 {
-    HandsUp,
-    HandsDown
+    HandsUp
 };
 
 public class PoseManager : MonoBehaviour
 {
-    [SerializeField]
-    private PoseScoreManager scoreManager;
-
     [SerializeField]
     private string[] modelPaths;
 
@@ -54,6 +50,10 @@ public class PoseManager : MonoBehaviour
     };
 
     public static Dictionary<CustomGestureType, PoseModel> gestureModel = new Dictionary<CustomGestureType, PoseModel>();
+
+    public delegate void CorrectGesture();
+
+    public static event CorrectGesture OnNewGoal;
 
     void Start()
     {
@@ -106,7 +106,7 @@ public class PoseManager : MonoBehaviour
 
         if (gestureModel[targetCustomGesture].Compare(new PoseModel(modelBuffer)))
         {
-            scoreManager.OnNewGoal();
+            OnNewGoal();
         }
 
         SelectNewGesture();
@@ -120,7 +120,7 @@ public class PoseManager : MonoBehaviour
             {
                 if (gesture.Type == targetNuitrackGesture)
                 {
-                    scoreManager.OnNewGoal();
+                    OnNewGoal();
                     SelectNewGesture();
                     break;
                 }
@@ -155,7 +155,7 @@ public class PoseManager : MonoBehaviour
 
     private void SelectNewGesture()
     {
-        isNextGestureTrackedByNuitrack = (Random.Range(1, 10) >= 3);
+        isNextGestureTrackedByNuitrack = (Random.Range(1, 10) >= 10);
 
         if (isNextGestureTrackedByNuitrack)
         {
@@ -182,6 +182,11 @@ public class PoseManager : MonoBehaviour
     public bool IsCollectingData()
     {
         return isCollectingData;
+    }
+
+    public int GetFrameIndex()
+    {
+        return frameIndex;
     }
 
 }
