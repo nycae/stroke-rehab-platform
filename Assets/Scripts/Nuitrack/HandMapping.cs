@@ -18,7 +18,6 @@ public class HandMapping : MonoBehaviour
                 ? CurrentUserTracker.CurrentSkeleton.GetJoint(nuitrack.JointType.LeftHand).ToVector3()
                 : CurrentUserTracker.CurrentSkeleton.GetJoint(nuitrack.JointType.RightHand).ToVector3();
 
-            //gameObject.transform.position = new Vector3(handPosition.X * Screen.width, handPosition.Y * Screen.height, 0) + originalPosition;
             handPosition *= 0.0025f;
             handPosition += originalPosition;
             handPosition.z = originalPosition.z;

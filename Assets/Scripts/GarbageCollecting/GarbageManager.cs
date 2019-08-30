@@ -6,6 +6,7 @@ public class GarbageManager : ScoreManager
     {
         base.Start();
         StoreBall.OnGoal += AttendGoal;
+        Screen.SetResolution(1280, 720, true);
     }
 
     public void AttendGoal()

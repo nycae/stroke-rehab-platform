@@ -1,13 +1,11 @@
 ﻿using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 
 public class PoseModel
 {
-    static public int numberOfJoints = 11;
+    static public int numberOfJoints = 9;
 
     static public int expectedFrameRate = 30;
 

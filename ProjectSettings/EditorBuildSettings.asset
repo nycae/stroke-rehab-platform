@@ -5,22 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 0585099e98b741a4581e7abac628ea18
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/WindowCleaning.unity
     guid: bc5a59b50e40db9439ca2f4b56bbca1f
-  - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
-    guid: 006678ce621c64d4d8ee5025ce13c49e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GarbageCollector.unity
     guid: fb9c7e6607f943c4baa94a85e832ca6c
   - enabled: 1
     path: Assets/Scenes/PoseRecognition.unity
     guid: f526c95b499c2ed47bf8eda5c3ac91fa
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MovementModelGenerator.unity
     guid: a6e2e972e4097bf44963b3191a77fe18
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 006678ce621c64d4d8ee5025ce13c49e
   m_configObjects: {}

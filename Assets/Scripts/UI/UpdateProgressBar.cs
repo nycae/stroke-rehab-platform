@@ -9,6 +9,9 @@ public class UpdateProgressBar : MonoBehaviour
     private ScoreManager scoreManager;
 
     [SerializeField]
+    private Text text;
+
+    [SerializeField]
     private Slider slider;
 
 
@@ -23,6 +26,9 @@ public class UpdateProgressBar : MonoBehaviour
 
     void Update()
     {
-        slider.value = (float)scoreManager.GetScore() / (float)scoreManager.GetMaxScore();
+        float proportion = (float)scoreManager.GetScore() / (float)scoreManager.GetMaxScore();
+
+        slider.value = proportion;
+        text.text = (proportion * 100f).ToString("0.00") + "%";
     }
 }

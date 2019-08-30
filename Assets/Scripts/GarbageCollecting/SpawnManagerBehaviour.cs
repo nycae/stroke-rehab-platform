@@ -15,17 +15,13 @@ public class SpawnManagerBehaviour : MonoBehaviour
     private GameObject[] spawnPoints;
 
     [SerializeField]
+    private GameObject trash;
+
+    [SerializeField]
     private float waitTime = 0.5f;
 
     [SerializeField]
     private bool randomTrash = false;
-
-    [SerializeField]
-    private GameObject trash;
-
-    private float lastGoalTime;
-
-    private bool isBallSpawned = false;
 
     private int lastBallIndex = 0;
 
@@ -38,27 +34,12 @@ public class SpawnManagerBehaviour : MonoBehaviour
         ScoreManager.OnGameEnd += AttendEndGame;
     }
 
-    private void Update()
-    {
-        if (!isBallSpawned
-            &&
-            !isGameOver
-            &&
-            (Time.time - lastGoalTime) >= waitTime)
-        {
-            SpawnBall();
-            if (randomTrash) SpawnTrash();
-        }
-    }
-
-
 
     private void SpawnBall()
     {
         int ballIndex = Random.Range(0, spawnPoints.Length);
         Instantiate(ballClass, spawnPoints[ballIndex].transform.position, Quaternion.identity);
 
-        isBallSpawned = true;
         lastBallIndex = ballIndex;
     }
 
@@ -74,13 +55,16 @@ public class SpawnManagerBehaviour : MonoBehaviour
 
     public void AttendGoal()
     {
-        lastGoalTime = Time.time;
+        if (isGameOver)
+            return;
+
+        Invoke("SpawnBall", waitTime);
+
         if (randomTrash)
         {
             Destroy(trash);
             SpawnTrash();
         }
-        isBallSpawned = false;
     }
 
     public void AttendEndGame()

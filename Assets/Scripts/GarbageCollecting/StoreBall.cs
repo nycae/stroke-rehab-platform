@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class StoreBall : MonoBehaviour
 {
-
-    [SerializeField]
-    public UnityEngine.UI.Text logText;
-
-
-    [SerializeField]
-    public SpawnManagerBehaviour spawnManager;
-
     public delegate void Goal();
 
     public static event Goal OnGoal;
@@ -20,9 +12,8 @@ public class StoreBall : MonoBehaviour
     {
         OnGoal();
         Destroy(other.gameObject);
-
     }
-
+/*
     private GameObject GetBall(GameObject candidate)
     {
         for (int i = 0; i < candidate.transform.childCount; i++)
@@ -33,5 +24,5 @@ public class StoreBall : MonoBehaviour
 
         return null;
     }
-
+*/
 }
