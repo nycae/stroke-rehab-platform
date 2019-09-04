@@ -15,7 +15,7 @@ public class PoseManager : MonoBehaviour
     private JointMapping riggedAvatar;
 
     [SerializeField]
-    private float modelError;
+    private double modelError;
 
     private Quaternion[,] modelBuffer = new Quaternion[PoseModel.numberOfJoints, PoseModel.numberOfFrames];
 
@@ -50,12 +50,13 @@ public class PoseManager : MonoBehaviour
     public static Dictionary<CustomGestureType, PoseModel> gestureModel = new Dictionary<CustomGestureType, PoseModel>();
 
     public delegate void CorrectGesture();
-
     public static event CorrectGesture OnNewGoal;
 
     void Start()
     {
-        NuitrackManager.onUserTrackerUpdate += CloseOnMoreThanOneUser;
+        Application.targetFrameRate = 30;
+        Screen.SetResolution(1280, 720, true);
+
         NuitrackManager.GestureRecognizer.OnNewGesturesEvent += AttendGestures;
 
         gestureModels = new PoseModel[1];
@@ -64,7 +65,6 @@ public class PoseManager : MonoBehaviour
 
         gestureModels[0] = new PoseModel();
         gestureModels[0].LoadModel(modelPaths[0]);
-        gestureModels[0].SetError(modelError);
 
         gestureModel.Add(CustomGestureType.HandsUp,  gestureModels[0]);
     }
@@ -72,6 +72,7 @@ public class PoseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isCollectingData)
         {
             Quaternion[] frameRotations = riggedAvatar.GetRotations();
@@ -92,17 +93,19 @@ public class PoseManager : MonoBehaviour
 
     private void OnStartDataCollection()
     {
-        timestamp = Time.time;
-        isCollectingData = true;
-        frameIndex = 0;
+        timestamp           =   Time.time;
+        isCollectingData    =   true;
+        frameIndex          =   0;
     }
     
     private void AfterDataCollection()
     {
-        isCollectingData = false;
-        frameIndex = 0;
+        isNextGestureTrackedByNuitrack  =   true;
+        isCollectingData                =   false;
+        timestamp                       =   Time.time;
+        frameIndex                      =   0;
 
-        if (gestureModel[targetCustomGesture].Compare(new PoseModel(modelBuffer)))
+        if (gestureModel[targetCustomGesture].Compare(new PoseModel(modelBuffer)) <= modelError)
         {
             OnNewGoal();
         }
@@ -146,14 +149,9 @@ public class PoseManager : MonoBehaviour
         return timestamp;
     }
 
-    private void CloseOnMoreThanOneUser(nuitrack.UserFrame frame)
-    {
-        isMoreThanOneUser = (frame.Users.Length > 1);
-    }
-
     private void SelectNewGesture()
     {
-        isNextGestureTrackedByNuitrack = (Random.Range(1, 10) >= 10);
+        isNextGestureTrackedByNuitrack = (Random.Range(1, 10) >= 2);
 
         if (isNextGestureTrackedByNuitrack)
         {

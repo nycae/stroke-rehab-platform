@@ -12,10 +12,9 @@ public class ScoreManager : MonoBehaviour
     protected int delayTime = 2;
 
     public delegate void GameFinished();
-
     public static event GameFinished OnGameEnd;
 
-    protected virtual void Start()
+    public ScoreManager()
     {
         OnGameEnd += EndGameOperations;
     }

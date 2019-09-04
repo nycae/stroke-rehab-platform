@@ -8280,7 +8280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f744b8c369bc254b95f9fda866e6586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScore: 20
+  targetScore: 10
   delayTime: 2
 --- !u!4 &1490153745
 Transform:

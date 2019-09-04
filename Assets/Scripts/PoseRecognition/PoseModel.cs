@@ -15,8 +15,6 @@ public class PoseModel
 
     private Quaternion[,] rotationModel;
 
-    private double maxError;
-
     public PoseModel()
     {
         rotationModel = new Quaternion[numberOfJoints, numberOfFrames];
@@ -28,11 +26,6 @@ public class PoseModel
         Assert.AreEqual(initModel.GetLength(1), numberOfFrames);
 
         rotationModel = initModel;
-    }
-
-    public void SetError(float newMaxError)
-    {
-        maxError = newMaxError;
     }
 
     public double[][] GetAllComponents(char selection)
@@ -63,7 +56,7 @@ public class PoseModel
         return to_return;
     }
 
-    public bool Compare(PoseModel other)
+    public double Compare(PoseModel other)
     {
         NDtw.Dtw dtw;
 
@@ -84,7 +77,7 @@ public class PoseModel
             }
         }
 
-        return error <= maxError;
+        return error;
     }
 
     public void LoadModel(string fileName)

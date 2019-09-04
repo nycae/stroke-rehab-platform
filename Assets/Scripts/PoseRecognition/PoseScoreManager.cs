@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PoseScoreManager : ScoreManager
 {
-    delegate void Something();
 
-    protected override void Start()
+    public PoseScoreManager() : base()
     {
-        base.Start();
         PoseManager.OnNewGoal += AttendGoal;
     }
 

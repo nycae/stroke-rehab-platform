@@ -32,7 +32,7 @@ public class WaitAndCount : MonoBehaviour
             if (poseManager.IsCollectingData())
             {
                 img.color = captureColor;
-                slider.value = (float)poseManager.GetFrameIndex() / 90f;
+                slider.value = ((float) poseManager.GetFrameIndex()) / 90f;
             }
             else
             {

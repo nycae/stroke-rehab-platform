@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class CleanGameManager : ScoreManager
 {
@@ -12,10 +10,13 @@ public class CleanGameManager : ScoreManager
     [SerializeField]
     public GameObject frame;
 
-    override protected void Start()
-    {   
-        base.Start();
+    public CleanGameManager() : base()
+    {
         Cleanable.OnNewClean += OnNewClean;
+    }
+
+    protected void Start()
+    {   
         targetScore = 3 * ((GameObject.FindGameObjectsWithTag("Dirt").Length) - 3);
     }
 

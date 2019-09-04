@@ -2,11 +2,9 @@
 
 public class GarbageManager : ScoreManager
 {
-    override protected void Start()
+    public GarbageManager() : base()
     {
-        base.Start();
         StoreBall.OnGoal += AttendGoal;
-        Screen.SetResolution(1280, 720, true);
     }
 
     public void AttendGoal()
